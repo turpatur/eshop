@@ -1,5 +1,4 @@
 package id.ac.ui.cs.advprog.eshop.controller;
-
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +33,11 @@ public class ProductController {
         List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
         return "ProductList";
+    }
+
+    @PostMapping("/delete")
+    public String deleteProductPost (@RequestParam String productId) {
+        service.deleteProductById(productId);
+        return "redirect:list";
     }
 }
