@@ -27,8 +27,33 @@ public class ProductRepository {
         return productData.iterator();
     }
 
+    public Product findProductById(String productId) {
+        for (Product product : productData) {
+            if (product.getProductId().equals(productId)) {
+                return product;
+            }
+        }
+        throw new RuntimeException(
+                String.format("Product with ID %s not found.", productId)
+        );
+    }
+
+    public void update(String productId, Product updatedProduct) {
+        for (Product currentProduct : productData) {
+            if (currentProduct.getProductId().equals(productId)) {
+                currentProduct.setProductName(updatedProduct.getProductName());
+                currentProduct.setProductQuantity(updatedProduct.getProductQuantity());
+            }
+        }
+            if (productData.isEmpty()) {
+                throw new RuntimeException(
+                        "Products are empty"
+                );
+            }
+        }
     public void delete(String productId) {
         productData.removeIf(product -> product.getProductId().equals(productId));
     }
 
-}
+    }
+
