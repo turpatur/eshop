@@ -13,10 +13,12 @@ public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
 
     public Product create(Product product) {
-        if (product.getProductId() == null) {
+
+        if (product.getProductId() == null){
             UUID uuid = UUID.randomUUID();
             product.setProductId(uuid.toString());
         }
+
         productData.add(product);
         return product;
     }
@@ -49,4 +51,9 @@ public class ProductRepository {
                 );
             }
         }
+    public void delete(String productId) {
+        productData.removeIf(product -> product.getProductId().equals(productId));
     }
+
+    }
+

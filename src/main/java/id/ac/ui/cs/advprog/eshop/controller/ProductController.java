@@ -1,5 +1,4 @@
 package id.ac.ui.cs.advprog.eshop.controller;
-
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import id.ac.ui.cs.advprog.eshop.service.ProductServiceImpl;
@@ -47,6 +46,12 @@ public class ProductController {
     @PostMapping("/editProduct")
     public String editProductPost(@ModelAttribute Product product, Model model) {
         service.updateProduct(product.getProductId(), product);
+        return "redirect:list";
+    }
+
+    @PostMapping("/delete")
+    public String deleteProductPost (@RequestParam String productId) {
+        service.deleteProductById(productId);
         return "redirect:list";
     }
 }
