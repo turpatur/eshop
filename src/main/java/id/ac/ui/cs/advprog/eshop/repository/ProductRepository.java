@@ -14,6 +14,10 @@ public class ProductRepository {
 
     public Product create(Product product) {
 
+        if (product.getProductQuantity() < 0){
+            throw new IllegalArgumentException( "Product quantity cannot be negative");
+        }
+
         if (product.getProductId() == null){
             UUID uuid = UUID.randomUUID();
             product.setProductId(uuid.toString());
@@ -39,18 +43,19 @@ public class ProductRepository {
     }
 
     public void update(String productId, Product updatedProduct) {
-        for (Product currentProduct : productData) {
-            if (currentProduct.getProductId().equals(productId)) {
-                currentProduct.setProductName(updatedProduct.getProductName());
-                currentProduct.setProductQuantity(updatedProduct.getProductQuantity());
-            }
+        if (productData.isEmpty()) {
+            throw new RuntimeException(
+                    "Products are empty"
+            );
         }
-            if (productData.isEmpty()) {
-                throw new RuntimeException(
-                        "Products are empty"
-                );
-            }
+
+        Product targetProduct = findProductById(productId);
+        if (productId.equals(targetProduct.getProductId())) {
+            targetProduct.setProductName(updatedProduct.getProductName());
+            targetProduct.setProductQuantity(updatedProduct.getProductQuantity());
         }
+    }
+
     public void delete(String productId) {
         productData.removeIf(product -> product.getProductId().equals(productId));
         }
