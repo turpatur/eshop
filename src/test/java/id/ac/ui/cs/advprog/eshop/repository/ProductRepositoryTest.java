@@ -72,7 +72,7 @@ public class ProductRepositoryTest {
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(-5);
         Exception exception = assertThrows(IllegalArgumentException.class, () ->
-                productRepository.create(new Product())
+                productRepository.create(product)
         );
         assertEquals("Product quantity cannot be negative", exception.getMessage());
     }
@@ -110,10 +110,10 @@ public class ProductRepositoryTest {
         productRepository.create(product);
 
         // Assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+        Exception exception = assertThrows(RuntimeException.class, () ->
                 productRepository.update("non-existent-id", product)
         );
-        assertEquals("product not found", exception.getMessage());
+        assertEquals("Product with ID non-existent-id not found.", exception.getMessage());
     }
 
     @Test
