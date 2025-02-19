@@ -28,7 +28,7 @@ class ProductServiceImplTest {
     @BeforeEach
     void setUp() {
         product = new Product();
-        product.setProductId("1");
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductName("Test Product");
         product.setProductQuantity(1);
     }
@@ -40,9 +40,9 @@ class ProductServiceImplTest {
         Product createdProduct = productService.create(product);
         assertNotNull(createdProduct);
 
-        assertEquals("1", createdProduct.getProductId());
-        assertEquals("Test Product", createdProduct.getProductName());
-        assertEquals(1, createdProduct.getProductQuantity());
+        assertEquals(product.getProductId(), createdProduct.getProductId());
+        assertEquals(product.getProductName(), createdProduct.getProductName());
+        assertEquals(product.getProductQuantity(), createdProduct.getProductQuantity());
     }
 
     @Test
@@ -73,7 +73,7 @@ class ProductServiceImplTest {
     @Test
     void testFindProductById() {
         when(productRepository.findProductById(product.getProductId())).thenReturn(product);
-        Product foundProduct = productService.findProductById("1");
+        Product foundProduct = productService.findProductById(product.getProductId());
         assertNotNull(foundProduct);
 
         assertEquals(product.getProductId(), foundProduct.getProductId());
