@@ -50,10 +50,8 @@ public class ProductRepository {
         }
 
         Product targetProduct = findProductById(productId);
-        if (productId.equals(targetProduct.getProductId())) {
-            targetProduct.setProductName(updatedProduct.getProductName());
-            targetProduct.setProductQuantity(updatedProduct.getProductQuantity());
-        }
+        targetProduct.setProductName(updatedProduct.getProductName());
+        targetProduct.setProductQuantity(updatedProduct.getProductQuantity());
     }
 
     public void delete(String productId) {
