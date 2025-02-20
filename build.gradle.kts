@@ -1,6 +1,7 @@
 plugins {
 	java
 	jacoco
+	pmd
 	id("org.springframework.boot") version "3.4.2"
 	id("io.spring.dependency-management") version "1.1.7"
 }
@@ -43,6 +44,8 @@ dependencies {
 	testImplementation("io.github.bonigarcia:selenium-jupiter:$seleniumJupiterVersion")
 	testImplementation("io.github.bonigarcia:webdrivermanager:$webdrivermanagerVersion")
 	testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
+	pmd("net.sourceforge.pmd:pmd-ant:7.10.0")
+	pmd("net.sourceforge.pmd:pmd-java:7.10.0")
 }
 
 tasks.register<Test>("unitTest"){
@@ -77,4 +80,9 @@ tasks.test{
 
 tasks.jacocoTestReport{
 	dependsOn(tasks.test)
+}
+
+pmd{
+	isConsoleOutput = true
+	toolVersion = "7.10.0"
 }
