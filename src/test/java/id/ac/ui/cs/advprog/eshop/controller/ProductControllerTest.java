@@ -70,7 +70,7 @@ class ProductControllerTest {
         String viewName = productController.editProductPage(product.getProductId(), model);
 
         verify(model, times(1)).addAttribute("product", product);
-        assertEquals("editProduct", viewName);
+        assertEquals("EditProduct", viewName);
     }
 
     @Test
