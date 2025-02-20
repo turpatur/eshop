@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public String ProductListPage (Model model) {
+    public String productListPage (Model model) {
         List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
         return "ProductList";

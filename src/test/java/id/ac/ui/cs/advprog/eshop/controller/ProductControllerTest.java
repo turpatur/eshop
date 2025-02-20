@@ -57,7 +57,7 @@ class ProductControllerTest {
         List<Product> productList = Collections.singletonList(product);
         when(productService.findAll()).thenReturn(productList);
 
-        String viewName = productController.ProductListPage(model);
+        String viewName = productController.productListPage(model);
 
         verify(model, times(1)).addAttribute("products", productList);
         assertEquals("ProductList", viewName);
