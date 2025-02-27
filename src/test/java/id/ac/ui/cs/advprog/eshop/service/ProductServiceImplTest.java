@@ -72,7 +72,7 @@ class ProductServiceImplTest {
 
     @Test
     void testFindProductById() {
-        when(productRepository.findProductById(product.getProductId())).thenReturn(product);
+        when(productRepository.findById(product.getProductId())).thenReturn(product);
         Product foundProduct = productService.findProductById(product.getProductId());
         assertNotNull(foundProduct);
 
@@ -88,8 +88,8 @@ class ProductServiceImplTest {
         product2.setProductName("Another Product");
         product2.setProductQuantity(2);
 
-        doNothing().when(productRepository).update(product.getProductId(), product2);
+        doNothing().when(productRepository).update(product2, product.getProductId());
         productService.updateProduct(product.getProductId(), product2);
-        verify(productRepository, times(1)).update(product.getProductId(), product2);
+        verify(productRepository, times(1)).update(product2, product.getProductId());
     }
 }
