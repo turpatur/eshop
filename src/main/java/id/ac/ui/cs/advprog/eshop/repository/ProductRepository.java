@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements RepositoryInterface<Product> {
     private List<Product> productData = new ArrayList<>();
 
     public Product create(Product product) {
@@ -31,7 +31,7 @@ public class ProductRepository {
         return productData.iterator();
     }
 
-    public Product findProductById(String productId) {
+    public Product findById(String productId) {
         for (Product product : productData) {
             if (product.getProductId().equals(productId)) {
                 return product;
@@ -42,14 +42,14 @@ public class ProductRepository {
         );
     }
 
-    public void update(String productId, Product updatedProduct) {
+    public void update(Product updatedProduct, String productId) {
         if (productData.isEmpty()) {
             throw new RuntimeException(
                     "Products are empty"
             );
         }
 
-        Product targetProduct = findProductById(productId);
+        Product targetProduct = findById(productId);
         targetProduct.setProductName(updatedProduct.getProductName());
         targetProduct.setProductQuantity(updatedProduct.getProductQuantity());
     }
