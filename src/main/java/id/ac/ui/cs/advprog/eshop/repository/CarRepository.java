@@ -27,10 +27,18 @@ public class CarRepository implements RepositoryInterface<Car> {
                 return car;
             }
         }
-        return null;
+        throw new RuntimeException(
+                String.format("Car with ID %s not found.", id)
+        );
     }
 
     public void update(Car updatedCar, String id){
+        if (carData.isEmpty()) {
+            throw new RuntimeException(
+                    "Cars are empty"
+            );
+        }
+
         for (int i = 0; i < carData.size(); i++){
             Car car = carData.get(i);
             if(car.getCarId().equals(id)){
