@@ -10,8 +10,10 @@ import java.util.UUID;
 
 @Repository
 public class ProductRepository implements RepositoryInterface<Product> {
+
     private List<Product> productData = new ArrayList<>();
 
+    @Override
     public Product create(Product product) {
 
         if (product.getProductQuantity() < 0){
@@ -27,10 +29,12 @@ public class ProductRepository implements RepositoryInterface<Product> {
         return product;
     }
 
+    @Override
     public Iterator<Product> findAll() {
         return productData.iterator();
     }
 
+    @Override
     public Product findById(String productId) {
         for (Product product : productData) {
             if (product.getProductId().equals(productId)) {
@@ -42,6 +46,7 @@ public class ProductRepository implements RepositoryInterface<Product> {
         );
     }
 
+    @Override
     public void update(Product updatedProduct, String productId) {
         if (productData.isEmpty()) {
             throw new RuntimeException(
@@ -54,6 +59,7 @@ public class ProductRepository implements RepositoryInterface<Product> {
         targetProduct.setProductQuantity(updatedProduct.getProductQuantity());
     }
 
+    @Override
     public void delete(String productId) {
         productData.removeIf(product -> product.getProductId().equals(productId));
         }

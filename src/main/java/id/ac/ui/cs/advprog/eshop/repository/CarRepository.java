@@ -9,6 +9,8 @@ import java.util.UUID;
 @Repository
 public class CarRepository implements RepositoryInterface<Car> {
     private List<Car> carData = new ArrayList<>();
+
+    @Override
     public Car create(Car car){
         if(car.getCarId() == null){
             UUID uuid = UUID.randomUUID();
@@ -18,9 +20,11 @@ public class CarRepository implements RepositoryInterface<Car> {
         return car;
     }
 
+    @Override
     public Iterator<Car> findAll(){
         return carData.iterator();
     }
+    @Override
     public Car findById(String id){
         for (Car car : carData) {
             if(car.getCarId().equals(id)){
@@ -32,6 +36,7 @@ public class CarRepository implements RepositoryInterface<Car> {
         );
     }
 
+    @Override
     public void update(Car updatedCar, String id){
         if (carData.isEmpty()) {
             throw new RuntimeException(
@@ -50,6 +55,7 @@ public class CarRepository implements RepositoryInterface<Car> {
         }
     }
 
+    @Override
     public void delete(String id){
         carData.removeIf(car -> car.getCarId().equals(id));
     }
