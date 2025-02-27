@@ -93,8 +93,8 @@ public class ProductRepositoryTest {
         productRepository.create(product2);
 
 
-        productRepository.update(product1.getProductId(), product2);
-        Product retrievedProduct = productRepository.findProductById(product1.getProductId());
+        productRepository.update(product2, product1.getProductId());
+        Product retrievedProduct = productRepository.findById(product1.getProductId());
 
         assertEquals("Sampo Cap Usep", retrievedProduct.getProductName());
         assertEquals(50, retrievedProduct.getProductQuantity());
@@ -111,7 +111,7 @@ public class ProductRepositoryTest {
 
         // Assert
         Exception exception = assertThrows(RuntimeException.class, () ->
-                productRepository.update("non-existent-id", product)
+                productRepository.update(product, "non-existent-id")
         );
         assertEquals("Product with ID non-existent-id not found.", exception.getMessage());
     }
@@ -121,7 +121,7 @@ public class ProductRepositoryTest {
         Product product = new Product();
 
         Exception exception = assertThrows(RuntimeException.class, () ->
-                productRepository.update("random-id", product)
+                productRepository.update(product, "random-id")
         );
         assertEquals("Products are empty", exception.getMessage());
         }
@@ -148,7 +148,7 @@ public class ProductRepositoryTest {
         productRepository.delete("non-existent-id");
 
         assertThrows(RuntimeException.class, () ->
-                productRepository.findProductById("non-existent-id")
+                productRepository.findById("non-existent-id")
         );
     }
     @Test
