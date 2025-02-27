@@ -44,15 +44,10 @@ public class CarRepository implements RepositoryInterface<Car> {
             );
         }
 
-        for (int i = 0; i < carData.size(); i++){
-            Car car = carData.get(i);
-            if(car.getCarId().equals(id)){
-                //update the existing car with the new information
-                car.setCarName(updatedCar.getCarName());
-                car.setCarColor(updatedCar.getCarColor());
-                car.setCarQuantity(updatedCar.getCarQuantity());
-            }
-        }
+        Car targetCar = findById(id);
+        targetCar.setCarName(updatedCar.getCarName());
+        targetCar.setCarQuantity(updatedCar.getCarQuantity());
+        targetCar.setCarColor(updatedCar.getCarColor());
     }
 
     @Override
