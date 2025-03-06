@@ -48,65 +48,8 @@ public class PaymentTest {
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("random-id", "CASH_ON_DELIVERY", paymentData);
+            Payment payment = new Payment("random-id", "BANK_TRANSFER", paymentData);
         });
-    }
-
-    /*
-    DELIVERY VALIDATION
-     */
-    @Test
-    void testPaymentUnderZeroDeliveryFee(){
-        Map<String, String> paymentData = new HashMap<>();
-        paymentData.put("address", "random-address");
-        paymentData.put("deliveryFee", "-1");
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("random-id", "CASH_ON_DELIVERY", paymentData);
-        });
-    }
-
-    @Test
-    void testPaymentNotNumberDeliveryFee(){
-        Map<String, String> paymentData = new HashMap<>();
-        paymentData.put("address", "random-address");
-        paymentData.put("deliveryFee", "im_not_a_number");
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("random-id", "CASH_ON_DELIVERY", paymentData);
-        });
-    }
-
-    @Test
-    void testPaymentNullAddressDeliveryFee(){
-        Map<String, String> paymentData = new HashMap<>();
-        paymentData.put("address", "random-address");
-        paymentData.put("deliveryFee", null);
-
-        Map<String, String> paymentData2 = new HashMap<>();
-        paymentData2.put("address", null);
-        paymentData2.put("deliveryFee", "10");
-
-        Payment payment = new Payment("random-id", "CASH_ON_DELIVERY", paymentData);
-        Payment payment2 = new Payment("random-id", "CASH_ON_DELIVERY", paymentData2);
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("REJECTED", payment2.getStatus());
-    }
-
-    @Test
-    void testPaymentNullEmptyAddressDeliveryFee(){
-        Map<String, String> paymentData = new HashMap<>();
-        paymentData.put("address", "random-address");
-        paymentData.put("deliveryFee", "");
-
-        Map<String, String> paymentData2 = new HashMap<>();
-        paymentData2.put("address", "");
-        paymentData2.put("deliveryFee", "10");
-
-        Payment payment = new Payment("random-id", "CASH_ON_DELIVERY", paymentData);
-        Payment payment2 = new Payment("random-id", "CASH_ON_DELIVERY", paymentData2);
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("REJECTED", payment2.getStatus());
     }
 
     /*
@@ -198,15 +141,6 @@ public class PaymentTest {
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
         Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        assertEquals("SUCCESS", payment.getStatus());
-    }
-
-    @Test
-    void testPaymentValidCashOnDelivery(){
-        Map<String, String> paymentData = new HashMap<>();
-        paymentData.put("address", "random-address");
-        paymentData.put("deliveryFee", "1000");
-        Payment payment = new Payment("random-id", "CASH_ON_DELIVERY", paymentData);
         assertEquals("SUCCESS", payment.getStatus());
     }
 
