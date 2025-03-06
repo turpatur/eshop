@@ -117,7 +117,7 @@ public class PaymentTest {
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678A");
         Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        assertEquals("REJECTED", payment.getStaus());
+        assertEquals("REJECTED", payment.getStatus());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class PaymentTest {
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "EASHOP1234ABC5678");
         Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        assertEquals("REJECTED", payment.getStaus());
+        assertEquals("REJECTED", payment.getStatus());
     }
 
     @Test
@@ -133,7 +133,7 @@ public class PaymentTest {
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP1234ABC56789");
         Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        assertEquals("REJECTED", payment.getStaus());
+        assertEquals("REJECTED", payment.getStatus());
     }
 
     @Test
@@ -142,7 +142,7 @@ public class PaymentTest {
         paymentData.put("voucherCode", null);
 
         Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        assertEquals("REJECTED", payment.getStaus());
+        assertEquals("REJECTED", payment.getStatus());
     }
 
     @Test
@@ -151,7 +151,7 @@ public class PaymentTest {
         paymentData.put("voucherCode", "");
 
         Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        assertEquals("REJECTED", payment.getStaus());
+        assertEquals("REJECTED", payment.getStatus());
     }
 
     /*
