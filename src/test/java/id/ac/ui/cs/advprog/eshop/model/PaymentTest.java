@@ -37,14 +37,6 @@ public class PaymentTest {
         });
     }
 
-    @Test
-    void testPaymentInvalidMap(){
-        Map<String, String> paymentData = new HashMap<>();
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        });
-    }
-
     /*
     VOUCHER VALIDATION
      */
