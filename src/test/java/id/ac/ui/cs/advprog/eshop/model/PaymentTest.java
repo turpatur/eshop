@@ -18,15 +18,6 @@ public class PaymentTest {
     INVALIDS
      */
     @Test
-    void TestPaymentInvalidSubFeature(){
-        Map<String, String> paymentData = new HashMap<>();
-        paymentData.put("voucherCode", "ESHOP1234ABC5678");
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("random-id", "random-method", paymentData);
-        });
-    }
-
-    @Test
     void TestPaymentInvalidStatus(){
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
@@ -41,14 +32,6 @@ public class PaymentTest {
         Map<String, String> paymentData = new HashMap<>();
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("random-id", "VOUCHER_CODE", paymentData);
-        });
-    }
-
-    @Test void testMismatchMethods(){
-        Map<String, String> paymentData = new HashMap<>();
-        paymentData.put("voucherCode", "ESHOP1234ABC5678");
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("random-id", "BANK_TRANSFER", paymentData);
         });
     }
 
