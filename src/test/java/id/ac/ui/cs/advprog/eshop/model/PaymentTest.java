@@ -28,6 +28,16 @@ public class PaymentTest {
     }
 
     @Test
+    void TestPaymentInvalidMethod(){
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        Payment payment = new Payment("random-id","VOUCHER_CODE", paymentData);
+        assertThrows(IllegalArgumentException.class, () -> {
+            payment.setMethod("RANDOM_METHOD");
+        });
+    }
+
+    @Test
     void testPaymentInvalidMap(){
         Map<String, String> paymentData = new HashMap<>();
         assertThrows(IllegalArgumentException.class, () -> {
