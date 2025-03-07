@@ -52,9 +52,9 @@ public class Payment {
         }
 
         if(isValid){
-            setStatus("SUCCESS");
+            setStatus(PaymentStatus.SUCCESS.getValue());
         } else {
-            setStatus("REJECTED");
+            setStatus(PaymentStatus.REJECTED.getValue());
         }
 
     }
