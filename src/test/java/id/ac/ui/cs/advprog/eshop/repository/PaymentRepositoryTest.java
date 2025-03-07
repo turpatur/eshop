@@ -132,10 +132,7 @@ public class PaymentRepositoryTest {
 
     @Test
     void testGetOrderIfNotFound(){
-        Payment payment = payments.getFirst();
-
-        Payment foundPayment = paymentRepository.findById(payment.getId());
-        Order foundOrder = paymentRepository.getOrder(foundPayment.getId());
+        Order foundOrder = paymentRepository.getOrder("anId");
         assertNull(foundOrder);
     }
 }
