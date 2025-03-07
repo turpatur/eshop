@@ -1,11 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.model;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 
 import lombok.Getter;
-import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -14,39 +11,39 @@ public class Payment {
     String method;
     String status;
     Map<String, String> paymentData;
-    String[] statusList = new String[]{"SUCCESS", "REJECTED"};
-    String[] methodList = new String[]{"VOUCHER_CODE", "BANK_TRANSFER"};
 
     public Payment(String id, String method, Map<String, String> paymentData) {
         this.id = id;
-        this.method = method;
+        this.setMethod(method);
         this.paymentData = paymentData;
-
         this.validatePayment();
     }
 
     public void setStatus(String status) {
-        if  (!Arrays.asList(statusList).contains(status)){
+        if (PaymentStatus.contains(status)){
+            this.status = status;
+        }
+        else {
             throw new IllegalArgumentException();
         }
-        this.status = status;
     }
 
     public void setMethod(String method) {
-        if  (!Arrays.asList(methodList).contains(method)){
+        if  (PaymentMethod.contains(method)){
+        this.method = method;
+        } else{
             throw new IllegalArgumentException();
         }
-        this.method = method;
     }
 
     public void validatePayment(){
         boolean isValid = false;
-        switch (method){
-            case "VOUCHER_CODE":
+        switch (PaymentMethod.valueOf(method)){
+            case PaymentMethod.VOUCHER_CODE:
                 isValid = validateVoucher();
                 break;
 
-            case "BANK_TRANSFER":
+            case PaymentMethod.BANK_TRANSFER:
                 isValid = validateBankTransfer();
                 break;
 
