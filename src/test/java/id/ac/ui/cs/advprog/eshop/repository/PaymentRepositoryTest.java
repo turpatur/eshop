@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentRepositoryTest {
    PaymentRepository paymentRepository;
-   List<Payment> payments = new ArrayList<Payment>();
+   List<Payment> payments = new ArrayList<>();
    Product product = new Product();
    List<Product> products = List.of(product);
 
@@ -73,9 +73,7 @@ public class PaymentRepositoryTest {
     void testUpdateInvalidStatus(){
         Payment payment = payments.getFirst();
         Payment result = paymentRepository.save(payment, order);
-        assertThrows(IllegalArgumentException.class, () -> {
-            paymentRepository.update(payment, "INVALID");
-        });
+        assertThrows(IllegalArgumentException.class, () -> paymentRepository.update(payment, "INVALID"));
     }
 
     @Test
