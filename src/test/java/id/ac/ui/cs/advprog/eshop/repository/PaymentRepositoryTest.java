@@ -5,9 +5,11 @@ import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
+import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,15 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentRepositoryTest {
    PaymentRepository paymentRepository;
-   List<Payment> payments;
+   List<Payment> payments = new ArrayList<Payment>();
+   Product product = new Product();
+   List<Product> products = List.of(product);
+
    Order order = new Order(
             "13652556-012a-4c07-b546-54eb1396d79b",
-            null,
+            products,
             1708560000L,
             "Safira Sudrajat");
 
     @BeforeEach
     void setUp() {
+        paymentRepository = new PaymentRepository();
 
         Map<String, String> paymentVoucher = new HashMap<>();
         paymentVoucher.put("voucherCode", "ESHOP1234ABC5678");
@@ -32,8 +38,8 @@ public class PaymentRepositoryTest {
         payments.add(voucher);
 
         Map<String, String> paymentBankTransfer = new HashMap<>();
-        paymentVoucher.put("bankName", "aBankName");
-        paymentVoucher.put("referenceCode", "aRefCode");
+        paymentBankTransfer.put("bankName", "aBankName");
+        paymentBankTransfer.put("referenceCode", "aRefCode");
         Payment bankTransfer = new Payment("random-id-2", PaymentMethod.BANK_TRANSFER.getValue(), paymentBankTransfer);
         payments.add(bankTransfer);
     }
@@ -59,7 +65,7 @@ public class PaymentRepositoryTest {
         Payment updatedPayment = paymentRepository.findById(payment.getId());
         Order updatedOrder = paymentRepository.getOrder(updatedPayment.getId());
         assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
-        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), updatedOrder.getStatus());
 
     }
 
