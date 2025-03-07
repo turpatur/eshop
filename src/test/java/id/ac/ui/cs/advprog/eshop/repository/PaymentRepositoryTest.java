@@ -113,9 +113,9 @@ public class PaymentRepositoryTest {
     @Test
     void testGetOrder(){
         Payment payment = payments.getFirst();
-        paymentRepository.save(order, payment);
+        paymentRepository.save(payment, order);
 
-        Payment foundpayment = paymentRepository.findById(payment.getId());
+        Payment foundPayment = paymentRepository.findById(payment.getId());
         Order foundOrder = paymentRepository.getOrder(foundPayment.getId());
         assertEquals(order.getId(), foundOrder.getId());
         assertEquals(order.getStatus(), foundOrder.getStatus());
@@ -128,7 +128,7 @@ public class PaymentRepositoryTest {
     void testGetOrderIfNotFound(){
         Payment payment = payments.getFirst();
 
-        Payment foundpayment = paymentRepository.findById(payment.getId());
+        Payment foundPayment = paymentRepository.findById(payment.getId());
         Order foundOrder = paymentRepository.getOrder(foundPayment.getId());
         assertNull(foundOrder);
     }
