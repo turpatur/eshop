@@ -118,6 +118,14 @@ public class PaymentTest {
         assertEquals("REJECTED", payment2.getStatus());
     }
 
+    @Test
+    void testPaymentBankInvalidInformation(){
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "a-random-code");
+        Payment payment = new Payment("random-id", "BANK_TRANSFER", paymentData);
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
     /*
     HAPPY PATHS
      */
